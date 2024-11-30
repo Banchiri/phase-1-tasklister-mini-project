@@ -30,7 +30,7 @@ Canvas.
 
 ### Structuring Your Code
 
-You've been provided with a basic HTML file, as well as an `index.js` file where
+Use basic HTML file, as well as an `index.js` file where
 you can implement your solution. Note that the `index.js` file is contained
 within a `src` folder — this is a common pattern that you will see in many labs
 moving forward. If you take a look at the `index.html` file, you'll see that the
