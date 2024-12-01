@@ -1,150 +1,173 @@
-# Challenge: TaskLister Mini-Project
+Task Lister Application: Detailed Report
+This report details the development process of the Task Lister application. It includes the steps taken to set up the environment, the architecture of the application, challenges encountered and how they were resolved, and the potential impact of the application in the Kenyan context.
 
-## Learning Goals
+1. Setting Up the Environment
+   The setup process for the Task Lister application emphasized simplicity, ensuring the application was lightweight and easy to run without requiring a backend or database. The tools and steps below highlight the development environment configuration.
 
-- Build a functioning to-do list application
-- Suppress a default action with `event.preventDefault()`
+1.1 Prerequisites
+The following software tools were installed to enable smooth development:
 
-## Introduction
+Visual Studio Code (VS Code): Chosen for its flexibility, built-in debugger, and extension support.
 
-In this lab, you'll be creating a simple to-do list application that uses
-JavaScript to manipulate the DOM.
+Live Server: A lightweight development server that allows real-time updates to the web browser whenever changes are made to the code.
 
-Check out the [working demo][example]!
+To install and configure Live Server, the following steps were followed:
 
-## Lab: Build a Functioning To-Do List Application
+Install the Live Server extension in VS Code.
 
-Instead of relying on tests, this lab is _deliverable driven_. You will be
-responsible for ensuring that your solution works as intended by testing the
-behavior in the browser.
+Right-click on the index.html file and select Open with Live Server to launch the application in a browser.
 
-1. Fork and clone this repository
-2. Open `index.html` in Chrome
-3. Put your JavaScript knowledge to the test and work your way through the
-   deliverables
+These tools enabled rapid development and testing of the application.
 
-Once you're done, be sure to commit and push your code up to GitHub, then submit
-the assignment using CodeGrade. Even though this lab does not have tests, it
-must still be submitted through CodeGrade in order to be marked as complete in
-Canvas.
+1.2 Project Structure
+The directory structure for the project was designed to keep all files organized and easy to navigate:
 
-### Structuring Your Code
+scss
+Copy code
+/TaskLister
+├── index.html // Main HTML file for the app
+├── style.css // CSS file for styling
+├── src
+│ └── index.js // JavaScript file for functionality
+└── README.md // Project documentation
+This structure ensured separation of concerns:
 
-Use basic HTML file, as well as an `index.js` file where
-you can implement your solution. Note that the `index.js` file is contained
-within a `src` folder — this is a common pattern that you will see in many labs
-moving forward. If you take a look at the `index.html` file, you'll see that the
-`script` tag that loads the code file includes the `src` directory in its path:
+HTML defined the structure of the application.
 
-```html
-<script src="./src/index.js"></script>
-```
+CSS provided the styling.
 
-### Deliverables
+JavaScript implemented the dynamic behavior.
 
-- As a user, I should be able to type a task into the input field.
-- As a user, I should be able to click some form of a submit button.
-- As a user, I expect to see the task string that I provided appear in the DOM
-  after the submit button has been activated.
+1.3 Development Workflow
+The development was carried out entirely on the frontend. Live Server provided instant feedback, allowing changes made to the code to be reflected immediately in the browser. This setup eliminated the need for backend services or a database, ensuring simplicity and portability.
 
-**Note:** [While the example][example] shows one possible working implementation
-of the TaskLister app, yours can (and is encouraged to!) look however you like!
+2. Architecture of the Application
+   The Task Lister application was designed with a focus on modularity and simplicity. Below is an overview of its architecture:
 
-### HTML Forms
+2.1 User Interface (HTML)
+The user interface consists of:
 
-For this lab, we are going to be using the [HTML `<form>` element][form] to
-capture the tasks the user enters. HTML forms can be quite complex and
-sophisticated but, at their most basic, consist of opening and closing `<form>`
-tags that enclose one or more `<input>` elements where users can enter
-information, and a way to submit the form. There are many types of [input
-fields][] to choose from; we use the `type` attribute to specify the one we
-want. For this lab, we are using two: a text field (`type="text"`) and a submit
-button (`type="submit"`).
+Input Form: Allows users to add new tasks by entering a description.
 
-If you look in the `index.html` file, you will see the following:
+Task Lists:
 
-```html
-<form id="create-task-form" action="#" method="POST">
-  <label for="new-task-description">Task description:</label>
-  <input
-    type="text"
-    id="new-task-description"
-    name="new-task-description"
-    placeholder="description"
-  />
-  <input type="submit" value="Create New Task" />
-</form>
-```
+My Todos: Displays tasks that need to be completed.
 
-Now take a look at the page in your browser. The rendered form looks like this:
+Completed Tasks: Displays tasks that have been marked as done.
 
-![TaskLister input form](https://curriculum-content.s3.amazonaws.com/phase-1/javascript-events/task_lister.png)
+2.2 Styling (CSS)
+CSS was used to create a clean and user-friendly design:
 
-You can see each of the components that are in our form's HTML:
+Flexbox Layouts: Enabled alignment of task items and buttons.
 
-1. the label for our input field ("Task description:")
-2. the input box, with the placeholder content "description", and
-3. the button that's created by the `submit` input tag
+Custom Styles: Borders, rounded corners, and hover effects were added for an engaging user experience.
 
-Let's take a closer look at the opening `<form>` tag. You'll see it includes an
-(optional) `id` attribute and two other attributes:
+Key CSS snippet:
 
-```html
-<form id="create-task-form" action="#" method="POST"></form>
-```
+css
+Copy code
+.task-item {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 5px 10px;
+border: 1px solid #ccc;
+border-radius: 5px;
+margin-bottom: 5px;
+}
+This ensured that task items were well-aligned, and the delete button stayed at the far right.
 
-Because HTML forms were designed to be handled by backend programming languages
-such as PHP, the `action` attribute would normally contain a path to the backend
-code that processes the data captured from the user. Because we will be handling
-the form using JavaScript, we don't need to provide a path. By convention, we
-set that attribute to `"#"`.
+2.3 Dynamic Behavior (JavaScript)
+JavaScript added interactivity to the application:
 
-The `method` attribute specifies the _type_ of action we're executing when the
-form is submitted. The `method` attribute's value (in this case, "POST") is an
-_HTTP Verb_. (Although it is not required, you will often see HTTP verbs in all
-caps.) We will learn more about HTTP Verbs in the next section. For now, just
-know that the `POST` method is used when we want to capture the data submitted
-by our form and use it in some way.
+Adding Tasks: Users could submit new tasks through the form. Tasks were dynamically appended to the "My Todos" list.
 
-By default, the HTML `<form>` element submits the form and redirects the browser
-to a new url when the `<submit>` button is clicked. This default behavior makes
-sense when form submission is being handled by a back-end programming language.
-However, this _is not_ the experience we want to build in this lab. We instead
-want to handle the submission of the form using JavaScript and update the DOM
-without reloading the page. Therefore, we need to prevent that event from
-performing its default behavior.
+Deleting Tasks: Each task had a delete button, allowing users to remove tasks.
 
-### Suppress a Default Action with `Event.preventDefault()`
+Marking Tasks as Completed:
 
-The deliverables for this lab require you to use JavaScript to handle the
-clicking of the submit button. To do this, you'll need to listen for a `submit`
-event on the `<form>` element. In order to _prevent_ the _default_ behavior of
-the `submit` event, when our event listener "sees" the event, it needs to invoke
-the `preventDefault()` method on it.
+Clicking on a task description struck it through and moved it to the "Completed Tasks" list.
 
-Take a look at the [MDN Documentation on `Event.preventDefault()`][mdn-pd].
-You'll see how JavaScript is used to prevent a form element (checkbox) from
-doing its _default_ behavior (appearing checked upon click). You'll want to
-prevent `submit` from doing its default behavior in a similar fashion.
+Completed tasks were visually separated for clarity.
 
-### Stretch Deliverables
+Key JavaScript snippet:
 
-Once you've got the required deliverables working, you may want to try to
-implement one or more of the following:
+javascript
+Copy code
+taskItem.addEventListener("click", () => {
+taskItem.style.textDecoration = "line-through";
+completedTasks.appendChild(taskItem);
+});
+This behavior ensured that completed tasks were clearly marked and moved to a separate section.
 
-- A delete function that will remove tasks from your list
-- A priority value selected from a [dropdown][] that is used to determine the
-  color of the text in the list (e.g. red for high priority, yellow for medium,
-  green for low)
-  - As an additional challenge, implement a sorting functionality that displays
-    the tasks in ascending or descending order based on priority
-- An additional input field (e.g. user, duration, date due)
-- Ability to edit tasks
-- Something of your choice! The main objective is to add a feature that allows
-  the user's input to affect the DOM
+3. Challenges Encountered and Solutions
+   While developing the application, several challenges were faced. Here is an overview of those challenges and how they were addressed:
 
-[example]: https://learn-co-curriculum.github.io/js-task-lister-lite/
-[mdn-pd]: https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
-[form]: https://developer.mozilla.org/en-US/docs/Learn/Forms/Your_first_form
-[input fields]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input
-[dropdown]: https://www.w3docs.com/learn-html/html-select-tag.html
+3.1 Ensuring Button Alignment
+Challenge: The delete button's position was not fixed and would shift depending on the length of the task description.
+Solution: A flexbox container was implemented with justify-content: space-between. This ensured that the task description stayed aligned to the left while the delete button remained at the far right of the task item.
+
+3.2 Avoiding Duplicate Tasks
+Challenge: Users could accidentally submit the same task multiple times, cluttering the task list.
+Solution: A validation check was added to prevent duplicate tasks:
+
+javascript
+Copy code
+if (taskDescription.trim() !== "" && !isDuplicate(taskDescription)) {
+// Add task
+}
+function isDuplicate(description) {
+return Array.from(tasklist.children).some(
+(item) => item.textContent.includes(description)
+);
+}
+3.3 Managing Completed Tasks
+Challenge: Once a task was marked as completed, it was still possible to delete it from the "My Todos" list.
+Solution: A feature was added to move tasks to the "Completed Tasks" list immediately upon clicking the task description. This ensured logical separation between pending and completed tasks.
+
+3.4 Maintaining Simplicity Without a Backend
+Challenge: Without a database or API, task data was not persistent (e.g., refreshing the page would erase tasks).
+Solution: The application's scope was intentionally kept simple to focus on frontend functionality. For future enhancements, local storage or a lightweight backend could be integrated to persist task data.
+
+4. Potential Impact in the Kenyan Context
+   The Task Lister application has immense potential to benefit individuals, businesses, and communities in Kenya. Below are the detailed impacts:
+
+4.1 Enhancing Personal Productivity
+The app provides a digital solution for organizing daily tasks. It is especially useful for:
+
+Students: To track assignments, exams, and extracurricular commitments.
+
+Professionals: To manage work-related tasks and deadlines.
+
+4.2 Supporting Small Businesses
+Kenya's economy relies heavily on small and micro enterprises (SMEs). This app can help business owners:
+
+Organize day-to-day activities such as inventory restocking.
+
+Assign tasks to employees and track progress.
+
+4.3 Improving Community Projects
+The app can assist grassroots organizations and volunteer groups in Kenya:
+
+Coordinating tasks for initiatives such as cleanups and charity drives.
+
+Assigning responsibilities to group members.
+
+4.4 Empowering Farmers
+Farmers can use the app to track critical activities such as planting, irrigation, and harvesting schedules. It can also help agricultural groups coordinate shared tasks like bulk purchases or sales.
+
+4.5 Educating and Digitizing Rural Areas
+With growing smartphone penetration, even rural areas in Kenya can benefit:
+
+The app can introduce users to digital productivity tools.
+
+It promotes time management and organization skills, even for those unfamiliar with advanced software.
+
+4.6 Addressing Urban Challenges
+In Kenya’s cities, the app can assist urban professionals and gig workers in organizing tasks. For example, boda boda riders or delivery personnel can use it to track orders.
+
+4.7 Enhancing the Education Sector
+Teachers can manage lesson plans and grading schedules, while students can use the app to improve their time management.
+
+4.8 Cost-Effective Task Management
+Unlike expensive commercial task management tools, this app is free, lightweight, and accessible to users with basic digital skills. This makes it ideal for low-income users and SMEs in Kenya.
